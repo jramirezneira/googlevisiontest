@@ -1,4 +1,4 @@
-# jramirezneira 
+# Proyecto  de Javier Ramirez Neira 
 
 ## Google Could Vision + NodeJS
 

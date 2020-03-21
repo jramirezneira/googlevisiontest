@@ -1,6 +1,4 @@
-# DevFest 
-
-This repo was created for the Google DevFest 2017 Medellín
+# jramirezneira 
 
 ## Google Could Vision + NodeJS
 

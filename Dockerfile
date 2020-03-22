@@ -1,8 +1,7 @@
 FROM node:12
 WORKDIR /app
-COPY package*.json ./
+COPY package*.json /app
 RUN npm install
-COPY deployment.yaml ./
-COPY . .
-CMD ["npm", "start"]
+COPY . /app
+CMD node server.js
 EXPOSE 5000

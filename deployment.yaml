@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: vision-cloud-testimages-269619
+        image: gcr.io/testimages-269619/app:v1
         ports:
         - containerPort: 5000
         env:

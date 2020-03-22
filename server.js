@@ -6,7 +6,7 @@ const unlinkAsync = promisify(fs.unlink)
 const app = express();
 
 // serves main page 
-app.get("/", function (req, res) {
+app.get("./", function (req, res) {
     res.sendfile('./index.html')
 });
 

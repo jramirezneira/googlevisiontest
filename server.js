@@ -5,10 +5,10 @@ const { promisify } = require('util')
 const unlinkAsync = promisify(fs.unlink)
 const app = express();
 
-/* serves main page 
+// serves main page 
 app.get("/", function (req, res) {
     res.sendfile('index.html')
-});*/
+});
 
 //Configura cors para que api pueda ser usada en forma remota
 app.use(cors());

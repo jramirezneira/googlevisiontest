@@ -1,12 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs')
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
 const app = express();
 
 /* serves main page 
 app.get("/", function (req, res) {
     res.sendfile('index.html')
 });*/
+
+//Configura cors para que api pueda ser usada en forma remota
 app.use(cors());
+
 /* serves all the static files */
 app.get(/^(.+)$/, function (req, res) {
     console.log('static file request : ' + req.params);
@@ -18,35 +24,28 @@ app.listen(port, function () {
     console.log("Listening on " + port);
 });
 
-// Setting up multer to upload images
+// configura storage para subir imágenes, las imagenes se registran en formato jpg con la fecha y hora actual como nombre
 const multer = require('multer');
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/')
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '.jpg')//Appending.jpg
+        cb(null, Date.now() + '.jpg')
     }
 });
-
 const upload = multer({ storage: storage })
 
 
-app.post("/upload", upload.single('uploads'), 
-    (req, res) => {
-        const currentFile = req.file.path;
-        console.log("Image path: " + req.file.path);
-        res.send("Ok");
-    }
-);
-
+//importa y configura parámetros y credenciales de google vision
 const vision = require('@google-cloud/vision')({
-    projectId: 'vision-poc-180601',
+    projectId: 'testimages-269619',
     keyFilename: './cloud-credentials.json'
 });
 
-app.post("/labels", upload.single('uploads'), function (req, res) {
+
+
+app.post("/objects", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
     const request = {
         source: {
@@ -55,45 +54,37 @@ app.post("/labels", upload.single('uploads'), function (req, res) {
     };
     vision.labelDetection(request)
         .then((results) => {
-            const labels = results[0].labelAnnotations;
-            console.log('Labels:');
-            labels.forEach((label) => console.log(label.description));
-            res.send(labels);
+            const objects = results[0].labelAnnotations;
+            //console.log('objects:');
+            //objects.forEach((object) => console.log(object.description));
+            unlinkAsync(req.file.path);
+            res.send(objects);
         })
         .catch((err) => {
             console.error('ERROR:', err);
-            res.send("BAD");
+            res.send("ERROR");
         });
 });
 
-app.post("/faces", upload.single('uploads'), 
-    (req, res) => {
-        const currentFile = req.file.path;
-        vision.faceDetection({ source: { filename: currentFile } })
-            .then((results) => {
-                const faces = results[0].faceAnnotations;
-                res.send(faces);
-            })
-            .catch((err) => {
-                console.error('ERROR:', err);
-                res.send("BAD");
-            });
-    }
-);
 
-app.post("/faces-optimized", upload.single('uploads'), function (req, res) {
+
+app.post("/explicit", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
-    vision.faceDetection({ source: { filename: currentFile } })
+    const request = {
+        source: {
+            filename: currentFile
+        }
+    };
+    vision.safeSearchDetection(request)
         .then((results) => {
-            const faces = results[0].faceAnnotations;
-            fs.unlink(currentFile, (err) => {
-                if (err) throw err;
-            });
-            res.send(faces);
+            const objects = results[0].safeSearchAnnotation;
+            //console.log(objects);
+            unlinkAsync(req.file.path);
+            res.send(objects);
         })
         .catch((err) => {
             console.error('ERROR:', err);
-            res.send("BAD");
+            res.send("ERROR");
         });
 });
 

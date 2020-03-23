@@ -6,7 +6,7 @@ const unlinkAsync = promisify(fs.unlink)
 const app = express();
 
 // serves main page 
-app.get("./", function (req, res) {
+app.get("/", function (req, res) {
     res.sendfile('./index.html')
 });
 
@@ -14,10 +14,11 @@ app.get("./", function (req, res) {
 app.use(cors());
 
 /* serves all the static files */
+/*
 app.get(/^(.+)$/, function (req, res) {
     console.log('static file request : ' + req.params);
     res.sendfile(__dirname + req.params[0]);
-});
+});*/
 
 var port = process.env.PORT || 5000;
 app.listen(port, function () {
@@ -28,7 +29,7 @@ app.listen(port, function () {
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads\\')
+        cb(null, 'uploads')
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '.jpg')
@@ -47,8 +48,8 @@ const vision = require('@google-cloud/vision')({
 
 app.post("/objects", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
-    res.send(currentFile);
-    /*const request = {
+    console.log(currentFile);
+    const request = {
         source: {
             filename: currentFile
         }
@@ -64,16 +65,15 @@ app.post("/objects", upload.single('uploads'), function (req, res) {
         .catch((err) => {
             console.error('ERROR:', err);
             res.send("ERROR");
-        });*/
+        });
 });
 
 
 
 app.post("/explicit", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
-    res.send(currentFile);
-    //console.log(req.file.path);
-   /* const request = {
+    console.log(req.file.path);
+    const request = {
         source: {
             filename: currentFile
         }
@@ -88,6 +88,6 @@ app.post("/explicit", upload.single('uploads'), function (req, res) {
         .catch((err) => {
             console.error('ERROR:', err);
             res.send("ERROR");
-        });*/
+        });
 });
 

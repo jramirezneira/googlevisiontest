@@ -14,11 +14,11 @@ app.get("/", function (req, res) {
 app.use(cors());
 
 /* serves all the static files */
-/*
+
 app.get(/^(.+)$/, function (req, res) {
     console.log('static file request : ' + req.params);
     res.sendfile(__dirname + req.params[0]);
-});*/
+});
 
 var port = process.env.PORT || 5000;
 app.listen(port, function () {

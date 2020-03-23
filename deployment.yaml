@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deploymentv2
+  name: my-app-deployment
 spec:
   selector:
     matchLabels:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: gcr.io/testimages-269619/app:v2
+        image: gcr.io/testimages-269619/app:v1
         ports:
         - containerPort: 5000
         env:

@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path  = require('path');
 const fs = require('fs')
 const { promisify } = require('util')
 const unlinkAsync = promisify(fs.unlink)
@@ -28,9 +29,9 @@ app.listen(port, function () {
 // configura storage para subir imágenes, las imagenes se registran en formato jpg con la fecha y hora actual como nombre
 const multer = require('multer');
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: path.join(__dirname,'../uploads'),  /*(req, file, cb) => {
         cb(null, './uploads/')
-    },
+    }*/
     filename: (req, file, cb) => {
         cb(null, Date.now() + '.jpg')
     }

@@ -1,6 +1,9 @@
 # Proyecto  de Javier Ramirez Neira 
 # Google Could Vision + NodeJS + Api Rest + Kubernetes
 
+### Introducción
+Proyecto que implementa una api rest que consume los servicios de google cloud vision para el análisis de imágenes. Desarrollado con nodejs y desplegado en kebernetes de google cloud.
+
 #### Url Api para obtener listado de objetos presentes en la imagen:
 HTTP POST http://35.238.97.163/objects
 

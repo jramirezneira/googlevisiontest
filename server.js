@@ -29,7 +29,7 @@ app.listen(port, function () {
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads')
+        cb(null, './uploads/')
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '.jpg')
@@ -59,7 +59,7 @@ app.post("/objects", upload.single('uploads'), function (req, res) {
             const objects = results[0].labelAnnotations;
             //console.log('objects:');
             //objects.forEach((object) => console.log(object.description));
-            unlinkAsync(req.file.path);
+           // unlinkAsync(req.file.path);
             res.send(objects);
         })
         .catch((err) => {
@@ -82,7 +82,7 @@ app.post("/explicit", upload.single('uploads'), function (req, res) {
         .then((results) => {
             const objects = results[0].safeSearchAnnotation;
             //console.log(objects);
-            unlinkAsync(req.file.path);
+           // unlinkAsync(req.file.path);
             res.send(objects);
         })
         .catch((err) => {

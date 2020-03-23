@@ -23,7 +23,7 @@ gcloud auth configure-docker
 ```bash
 docker build -t gcr.io/[PROJECT_ID]/app:v1 .  //reemplazar [PROJECT_ID] por el id del proyecto en google cloud
 ```
-### 4- Hacer push de la imagen
+### 4- Push de la imagen
 ```bash
 docker push gcr.io/[PROJECT_ID]/app:v1  //reemplazar [PROJECT_ID] por el id del proyecto en google cloud
 ```

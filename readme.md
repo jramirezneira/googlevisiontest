@@ -1,5 +1,11 @@
 # Proyecto  de Javier Ramirez Neira 
-# Google Could Vision + NodeJS + Kubernetes
+# Google Could Vision + NodeJS + Api Rest + Kubernetes
+
+#### Url Api para obtener listado de objetos presentes en la imagen:
+HTTP POST http://35.238.97.163/objects
+
+#### Url Api para indicar si la imagen presenta contenido explicito.
+HTTP POST http://35.238.97.163/explicit
 
 ## Instalación en Kubernetes
 

@@ -3,7 +3,7 @@
 
 ## Instalación en Kubernetes
 
-### 1- Crear uno cluster de kubernetes en google cloud
+### 1- Crear cluster de kubernetes en google cloud
 ### 2- Desde la terminal de google cloud importar código desde github
 ```bash
 git clone https://github.com/jramirezneira/googlevisiontest.git
@@ -29,4 +29,55 @@ kubectl apply -f deployment.yaml --record
 ```bash
 kubectl get services
 ```
-![Validar servicio](imagereadme/testservices.jpg)
+
+## Funciones JS ES6 (server.js) de la api que procesan las peticiones POST para e procesamiento de imagen:
+
+### 1- Obtiene objetos de la imagen
+```bash
+app.post("/objects", upload.single('uploads'), function (req, res) {
+    const currentFile = req.file.path;
+    console.log(currentFile);
+    const request = {
+        source: {
+            filename: currentFile
+        }
+    };
+    vision.labelDetection(request)
+        .then((results) => {
+            const objects = results[0].labelAnnotations;
+            //console.log('objects:');
+            //objects.forEach((object) => console.log(object.description));
+            unlinkAsync(req.file.path);
+            res.send(objects);
+        })
+        .catch((err) => {
+            console.error('ERROR:', err);
+            res.send("ERROR");
+        });
+});
+```
+
+### 1- Valida contenido explícito de la imagen:
+```bash
+
+app.post("/explicit", upload.single('uploads'), function (req, res) {
+    const currentFile = req.file.path;
+    console.log(req.file.path);
+    const request = {
+        source: {
+            filename: currentFile
+        }
+    }; 
+    vision.safeSearchDetection(request)
+        .then((results) => {
+            const objects = results[0].safeSearchAnnotation;
+            //console.log(objects);
+            unlinkAsync(req.file.path);
+            res.send(objects);
+        })
+        .catch((err) => {
+            console.error('ERROR:', err);
+            res.send("ERROR");
+        });
+});
+```

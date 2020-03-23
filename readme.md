@@ -15,11 +15,11 @@ gcloud auth configure-docker
 ```
 ### 3- Construir imagen del proyecto
 ```bash
-docker build -t gcr.io/[PROJECT_ID]/app:v1 .
+docker build -t gcr.io/[PROJECT_ID]/app:v1 .  //reemplazar [PROJECT_ID] por el id del proyecto en google cloud
 ```
 ### 4- Hacer push de la imagen
 ```bash
-docker push gcr.io/[PROJECT_ID]/app:v1
+docker push gcr.io/[PROJECT_ID]/app:v1  //reemplazar [PROJECT_ID] por el id del proyecto en google cloud
 ```
 ### 5- Desplegar imagen en kubernetes
 ```bash
@@ -29,8 +29,6 @@ kubectl apply -f deployment.yaml --record
 ```bash
 kubectl get services
 ```
-![Image description](https://github.com/jramirezneira/googlevisiontest/blob/master/imagesreadme/testservices.jpg)
-
 
 ## Funciones JS ES6 (server.js) de la api que procesan las peticiones POST para el procesamiento de imagenes:
 

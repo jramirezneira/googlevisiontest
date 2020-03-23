@@ -15,7 +15,6 @@ app.get("/", function (req, res) {
 app.use(cors());
 
 /* serves all the static files */
-
 app.get(/^(.+)$/, function (req, res) {
     console.log('static file request : ' + req.params);
     res.sendfile(__dirname + req.params[0]);
@@ -29,9 +28,7 @@ app.listen(port, function () {
 // configura storage para subir imágenes, las imagenes se registran en formato jpg con la fecha y hora actual como nombre
 const multer = require('multer');
 const storage = multer.diskStorage({
-    destination: path.join(__dirname,'../uploads'),  /*(req, file, cb) => {
-        cb(null, './uploads/')
-    }*/
+    destination: path.join(__dirname,'/uploads'), 
     filename: (req, file, cb) => {
         cb(null, Date.now() + '.jpg')
     }
@@ -46,7 +43,7 @@ const vision = require('@google-cloud/vision')({
 });
 
 
-
+//Objetos detectados en la imagen
 app.post("/objects", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
     console.log(currentFile);
@@ -58,8 +55,6 @@ app.post("/objects", upload.single('uploads'), function (req, res) {
     vision.labelDetection(request)
         .then((results) => {
             const objects = results[0].labelAnnotations;
-            //console.log('objects:');
-            //objects.forEach((object) => console.log(object.description));
             unlinkAsync(req.file.path);
             res.send(objects);
         })
@@ -70,7 +65,7 @@ app.post("/objects", upload.single('uploads'), function (req, res) {
 });
 
 
-
+//Contenido explícito
 app.post("/explicit", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
     console.log(req.file.path);

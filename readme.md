@@ -1,5 +1,11 @@
 # Proyecto  de Javier Ramirez Neira 
 
-## Google Could Vision + NodeJS
+## Google Could Vision + NodeJS + Kubernetes
 
-This repository was created intending to show the benefits and features of Google Cloud Vision API and NodeJS SDK.
+## Instalación
+
+1- Crear uno cluster de kubernetes en google cloud
+2- Copiar cídigo desde git hub
+
+```bash
+git clone https://github.com/jramirezneira/googlevisiontest.git

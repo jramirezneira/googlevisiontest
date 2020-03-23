@@ -60,7 +60,7 @@ app.post("/objects", upload.single('uploads'), function (req, res) {
             const objects = results[0].labelAnnotations;
             //console.log('objects:');
             //objects.forEach((object) => console.log(object.description));
-           // unlinkAsync(req.file.path);
+            unlinkAsync(req.file.path);
             res.send(objects);
         })
         .catch((err) => {
@@ -78,12 +78,12 @@ app.post("/explicit", upload.single('uploads'), function (req, res) {
         source: {
             filename: currentFile
         }
-    };
+    }; 
     vision.safeSearchDetection(request)
         .then((results) => {
             const objects = results[0].safeSearchAnnotation;
             //console.log(objects);
-           // unlinkAsync(req.file.path);
+            unlinkAsync(req.file.path);
             res.send(objects);
         })
         .catch((err) => {

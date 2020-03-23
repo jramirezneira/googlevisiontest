@@ -28,7 +28,7 @@ app.listen(port, function () {
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/')
+        cb(null, 'uploads\\')
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '.jpg')
@@ -47,7 +47,8 @@ const vision = require('@google-cloud/vision')({
 
 app.post("/objects", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
-    const request = {
+    res.send(currentFile);
+    /*const request = {
         source: {
             filename: currentFile
         }
@@ -63,14 +64,16 @@ app.post("/objects", upload.single('uploads'), function (req, res) {
         .catch((err) => {
             console.error('ERROR:', err);
             res.send("ERROR");
-        });
+        });*/
 });
 
 
 
 app.post("/explicit", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
-    const request = {
+    res.send(currentFile);
+    //console.log(req.file.path);
+   /* const request = {
         source: {
             filename: currentFile
         }
@@ -85,6 +88,6 @@ app.post("/explicit", upload.single('uploads'), function (req, res) {
         .catch((err) => {
             console.error('ERROR:', err);
             res.send("ERROR");
-        });
+        });*/
 });
 

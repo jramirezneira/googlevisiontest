@@ -29,3 +29,4 @@ kubectl apply -f deployment.yaml --record
 ```bash
 kubectl get services
 ```
+![Validar servicio](imagereadme/testservices.jpg)

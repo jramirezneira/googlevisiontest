@@ -25,12 +25,14 @@ docker push gcr.io/[PROJECT_ID]/app:v1
 ```bash
 kubectl apply -f deployment.yaml --record
 ```
-### 6- Validar servicio y obtener ip externa
+### 6- Validar activación de servicio y obtener ip externa
 ```bash
 kubectl get services
 ```
+![Image description](https://github.com/jramirezneira/googlevisiontest/blob/master/imagesreadme/testservices.jpg)
 
-## Funciones JS ES6 (server.js) de la api que procesan las peticiones POST para e procesamiento de imagen:
+
+## Funciones JS ES6 (server.js) de la api que procesan las peticiones POST para el procesamiento de imagenes:
 
 ### 1- Obtiene objetos de la imagen
 ```bash
@@ -57,7 +59,7 @@ app.post("/objects", upload.single('uploads'), function (req, res) {
 });
 ```
 
-### 1- Valida contenido explícito de la imagen:
+### 2- Valida contenido explícito de la imagen:
 ```bash
 
 app.post("/explicit", upload.single('uploads'), function (req, res) {

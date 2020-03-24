@@ -39,9 +39,9 @@ kubectl apply -f deployment.yaml --record
 kubectl get services
 ```
 
-## Funciones JS ES6 (server.js) de la api que procesan las peticiones POST para el procesamiento de imagenes:
+## Funciones JS ES6 (server.js) de la api que procesan las peticiones POST para el análisis de imagenes:
 
-### 1- Obtiene objetos de la imagen
+### 1- Servicio /objects -  Obtiene objetos de la imagen
 ```bash
 app.post("/objects", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
@@ -66,7 +66,7 @@ app.post("/objects", upload.single('uploads'), function (req, res) {
 });
 ```
 
-### 2- Valida contenido explícito de la imagen:
+### 2- Servicio /explicit  - Valida contenido explícito de la imagen:
 ```bash
 
 app.post("/explicit", upload.single('uploads'), function (req, res) {
@@ -90,3 +90,10 @@ app.post("/explicit", upload.single('uploads'), function (req, res) {
         });
 });
 ```
+
+
+
+## Pruebas unitarias:
+### 1- Servicio /objects
+
+!{}(test/requestExplicit.jpg)

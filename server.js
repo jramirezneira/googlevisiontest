@@ -46,9 +46,9 @@ const vision = require('@google-cloud/vision')({
 
 //Objetos detectados en la imagen
 app.post("/objects", upload.single('uploads'), function (req, res) {
-    console.log(req.file);
+   
     const currentFile = req.file.path;
-    console.log(currentFile);
+  
     const request = {
         source: {
             filename: currentFile
@@ -70,7 +70,7 @@ app.post("/objects", upload.single('uploads'), function (req, res) {
 //Contenido explícito
 app.post("/explicit", upload.single('uploads'), function (req, res) {
     const currentFile = req.file.path;
-    console.log(req.file.path);
+  
     const request = {
         source: {
             filename: currentFile

@@ -1,9 +1,9 @@
 swagger: "2.0"
 info:
   title: Project API Rest Google Vision + Nodejs
-  description: Using Google Cloud Platform and the Computer Vision API requires creating a REST service that request an image and respond an analysis with information from it.
+  description: Using Google Cloud Platform and the Computer Vision API requires creating a REST service that receives an image and responds an analysis with information from it.
   version: 1.0.0
-host: 35.238.97.163
+host: localhost:5000
 schemes:
   - http
   - https

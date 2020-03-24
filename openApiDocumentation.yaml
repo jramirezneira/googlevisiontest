@@ -1,0 +1,103 @@
+swagger: "2.0"
+info:
+  title: Project API Rest Google Vision + Nodejs
+  description: Using Google Cloud Platform and the Computer Vision API requires creating a REST service that request an image and respond an analysis with information from it.
+  version: 1.0.0
+host: 35.238.97.163
+schemes:
+  - http
+  - https
+paths:
+  /objects:
+    post:
+      summary: Displays a list of objects present in an image.
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: uploads
+          type: file
+          description: Allows to upload an image and identify the objects present
+      responses:
+        200:
+          description: OK
+          examples:
+            application/json:  [
+								                {
+                                  "mid": "/m/0l7_8",
+                                  "locale": "",
+                                  "description": "Floor",
+                                  "score": 0.9756377339363098,
+                                  "confidence": 0,
+                                  "topicality": 0.9756377339363098,
+                                  "boundingPoly": null,
+                                  "locations": [],
+                                  "properties": []
+                                },
+                                {
+                                  "mid": "/m/01c34b",
+                                  "locale": "",
+                                  "description": "Flooring",
+                                  "score": 0.9541605114936829,
+                                  "confidence": 0,
+                                  "topicality": 0.9541605114936829,
+                                  "boundingPoly": null,
+                                  "locations": [],
+                                  "properties": []
+                                },
+                                {
+                                  "mid": "/m/06ht1",
+                                  "locale": "",
+                                  "description": "Room",
+                                  "score": 0.918979823589325,
+                                  "confidence": 0,
+                                  "topicality": 0.918979823589325,
+                                  "boundingPoly": null,
+                                  "locations": [],
+                                  "properties": []
+                                },
+                                {
+                                  "mid": "/m/04bcr3",
+                                  "locale": "",
+                                  "description": "Table",
+                                  "score": 0.8963702321052551,
+                                  "confidence": 0,
+                                  "topicality": 0.8963702321052551,
+                                  "boundingPoly": null,
+                                  "locations": [],
+                                  "properties": []
+                                },
+                                {
+                                  "mid": "/m/02rfdq",
+                                  "locale": "",
+                                  "description": "Interior design",
+                                  "score": 0.8841562271118164,
+                                  "confidence": 0,
+                                  "topicality": 0.8841562271118164,
+                                  "boundingPoly": null,
+                                  "locations": [],
+                                  "properties": []
+                                }
+                              ]   
+         
+  /explicit:
+    post:
+      summary: identify explicit content within an image.
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: uploads
+          type: file
+          description: Lets you upload an image and identify if it has explicit content.
+      responses:
+        200:
+          description: OK
+          examples:
+            application/json:  [{
+                                  "adult": "LIKELY",
+                                  "spoof": "VERY_UNLIKELY",
+                                  "medical": "UNLIKELY",
+                                  "violence": "UNLIKELY"
+                                }]
+  

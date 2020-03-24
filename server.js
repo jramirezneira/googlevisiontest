@@ -1,4 +1,7 @@
+//const openApiDocumentation =  require('./openApiDocumentation');
 const express = require('express');
+const swagger = require('swagger-ui-express');
+const yaml = require('js-yaml');
 const cors = require('cors');
 const path  = require('path');
 const fs = require('fs')
@@ -6,29 +9,27 @@ const { promisify } = require('util')
 const unlinkAsync = promisify(fs.unlink)
 const app = express();
 
-// serves main page 
-app.get("/", function (req, res) {
-    res.sendfile('./index.html')
-});
+let fileContents = fs.readFileSync('./openApiDocumentation.yaml', 'utf8');
+let openApiDocumentation = yaml.safeLoad(fileContents);
+
 
 //Configura cors para que api pueda ser usada en forma remota
 app.use(cors());
 
-/* serves all the static files */
-app.get(/^(.+)$/, function (req, res) {
-    console.log('static file request : ' + req.params);
-    res.sendfile(__dirname + req.params[0]);
-});
+
 
 var port = process.env.PORT || 5000;
 app.listen(port, function () {
     console.log("Listening on " + port);
 });
 
+
+
 // configura storage para subir imágenes, las imagenes se registran en formato jpg con la fecha y hora actual como nombre
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: path.join(__dirname,'/uploads'), 
+    
     filename: (req, file, cb) => {
         cb(null, Date.now() + '.jpg')
     }
@@ -45,6 +46,7 @@ const vision = require('@google-cloud/vision')({
 
 //Objetos detectados en la imagen
 app.post("/objects", upload.single('uploads'), function (req, res) {
+    console.log(req.file);
     const currentFile = req.file.path;
     console.log(currentFile);
     const request = {
@@ -87,3 +89,4 @@ app.post("/explicit", upload.single('uploads'), function (req, res) {
         });
 });
 
+app.use('/api-doc', swagger.serve, swagger.setup(openApiDocumentation));

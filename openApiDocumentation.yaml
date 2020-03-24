@@ -3,7 +3,7 @@ info:
   title: Project API Rest Google Vision + Nodejs
   description: Project that implements an api rest that consumes google cloud vision services for image analysis. Developed with nodejs and deployed in google cloud kebernetes.
   version: 1.0.0
-host: localhost:5000
+host: 35.238.97.163
 schemes:
   - http
   - https

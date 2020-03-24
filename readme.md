@@ -96,4 +96,4 @@ app.post("/explicit", upload.single('uploads'), function (req, res) {
 ## Pruebas unitarias:
 ### 1- Servicio /objects
 
-!{}(test/requestExplicit.jpg)
+![](test/requestExplicit.jpg)
